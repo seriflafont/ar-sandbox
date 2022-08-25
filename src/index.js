@@ -14,7 +14,7 @@ function getCities(count, data = {}) {
     return {
       lat,
       lng,
-      ...data
+      ...data,
     };
   });
 }
@@ -28,15 +28,10 @@ fetch("../datasets/ne_110m_admin_0_countries.geojson")
 
 const setupGlobe = (polygonCountries) => {
   world
-    .globeImageUrl("assets/earth-light.jpg")
+    .globeImageUrl("../src/assets/earth-light.jpg")
     .hexPolygonsData(polygonCountries)
     .hexPolygonResolution(3)
     .hexPolygonMargin(0.3)
     .hexPolygonAltitude(0.03)
-    .hexPolygonColor(
-      () =>
-        `#${Math.round(Math.random() * Math.pow(2, 24))
-          .toString(16)
-          .padStart(6, "0")}`
-    );
+    .hexPolygonColor(() => "#89E0D1");
 };
