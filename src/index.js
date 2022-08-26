@@ -1,24 +1,27 @@
-import { CITIES } from "./cities";
-const PURPLE = "9966cc";
-const NUM_RINGS = 1;
-const RINGS_MAX_R = 4; // deg
-const RING_PROPAGATION_SPEED = 5; // deg/sec
-const ARC_REL_LEN = 0.9;
-const FLIGHT_TIME = 1000;
+const THREE = window.THREE;
+const GlobeAR = window.GlobeAR;
+
+// import { CITIES } from "./cities";
+// const PURPLE = "9966cc";
+// const NUM_RINGS = 1;
+// const RINGS_MAX_R = 4; // deg
+// const RING_PROPAGATION_SPEED = 5; // deg/sec
+// const ARC_REL_LEN = 0.9;
+// const FLIGHT_TIME = 1000;
 
 const world = window.GlobeAR();
 world(document.getElementById("globeViz"));
 
-function getCities(count, data = {}) {
-  return CITIES.map(([lat, lng]) => {
-    return {
-      lat,
-      lng,
-      ...data,
-    };
-  });
-}
-const FORMATTED_CITIES = getCities(20);
+// function getCities(count, data = {}) {
+//   return CITIES.map(([lat, lng]) => {
+//     return {
+//       lat,
+//       lng,
+//       ...data,
+//     };
+//   });
+// }
+// const FORMATTED_CITIES = getCities(20);
 
 fetch("../datasets/ne_110m_admin_0_countries.geojson")
   .then((res) => res.json())
@@ -27,11 +30,30 @@ fetch("../datasets/ne_110m_admin_0_countries.geojson")
   });
 
 const setupGlobe = (polygonCountries) => {
+  // const world = GlobeAR()
+  //   .globeImageUrl("//unpkg.com/three-globe/example/img/earth-dark.jpg")
+  //   .hexPolygonsData(polygonCountries)
+  //   .hexPolygonResolution(3)
+  //   .hexPolygonMargin(0.3)
+  //   .hexPolygonAltitude(0.03)
+  //   .hexPolygonColor(
+  //     () =>
+  //       `#${Math.round(Math.random() * Math.pow(2, 24))
+  //         .toString(16)
+  //         .padStart(6, "0")}`
+  //   )(document.getElementById("globeViz"));
   world
-    .globeImageUrl("../src/assets/earth-light.jpg")
+    .globeImageUrl("//unpkg.com/three-globe/example/img/earth-dark.jpg")
+    .showGlobe(true)
+    .showAtmosphere(true)
     .hexPolygonsData(polygonCountries)
     .hexPolygonResolution(3)
     .hexPolygonMargin(0.3)
     .hexPolygonAltitude(0.03)
-    .hexPolygonColor(() => "#89E0D1");
+    .hexPolygonColor(
+      () =>
+        `#${Math.round(Math.random() * Math.pow(2, 24))
+          .toString(16)
+          .padStart(6, "0")}`
+    );
 };
